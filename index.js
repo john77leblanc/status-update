@@ -35,6 +35,14 @@ async function getStatus() {
 };
 
 process.stdout.write("Running script\n");
+
+fs.stat('log.txt', function(err, stat) {
+    if(err) {
+        // file does not exist
+        fs.writeFileSync('log.txt', '');
+    }
+});
+
 getStatus();
 repeater(() => {
     if (clock === 0) {
