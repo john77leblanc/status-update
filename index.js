@@ -1,7 +1,11 @@
 const fs = require("fs");
+const path = require("path");
+
 const duration = require('dayjs/plugin/duration');
 const dayjs = require("dayjs");
 dayjs.extend(duration);
+
+const logFolder = path.join(__dirname, '/logs');
 
 const email = require("./email");
 const checkAvailability = require("./checkAvailability");
@@ -12,7 +16,17 @@ const interval = 1000;
 let clock = time;
 
 function log(message) {
-    fs.appendFileSync('log.txt', `${message}\n`, 'utf8');
+    const date = dayjs().format('MM-DD');
+    const file = path.join(logFolder, `log-${date}.txt`);
+
+    try {
+        fs.statSync(file);
+    }
+    catch(err) {
+        fs.writeFileSync(file, `LOGS ${date}`);
+    }
+
+    fs.appendFileSync(file, `\n${message}`, 'utf8');
 }
 
 async function getStatus() {
@@ -36,12 +50,12 @@ async function getStatus() {
 
 process.stdout.write("Running script\n");
 
-fs.stat('log.txt', function(err, stat) {
-    if(err) {
-        // file does not exist
-        fs.writeFileSync('log.txt', '');
-    }
-});
+// fs.stat('log.txt', function(err, stat) {
+//     if(err) {
+//         // file does not exist
+//         fs.writeFileSync('log.txt', '');
+//     }
+// });
 
 getStatus();
 repeater(() => {
