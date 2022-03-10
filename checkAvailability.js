@@ -2,16 +2,18 @@ const rp = require('request-promise');
 const cheerio = require('cheerio');
 
 
-module.exports = function checkAvailability() {
+module.exports = function checkAvailability(uri) {
     function checkStatus(data) {
         return {
             pickup: data.pickup.status,
             shipping: data.shipping.status,
+            onlineRemaining: data.shipping.quantityRemaining,
+            locations: data.pickup.locations,
         };
     };
     
     const options = {
-        uri: 'https://www.bestbuy.ca/ecomm-api/availability/products?accept=application%2Fvnd.bestbuy.standardproduct.v1%2Bjson&accept-language=en-CA&locations=964%7C236&postalCode=K7M&skus=15689336',
+        uri,
         transform: function (body) {
             return cheerio.load(body);
         }

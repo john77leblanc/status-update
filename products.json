@@ -1,0 +1,14 @@
+[
+    {
+        "name": "PS5",
+        "uri": "https://www.bestbuy.ca/ecomm-api/availability/products?accept=application%2Fvnd.bestbuy.standardproduct.v1%2Bjson&accept-language=en-CA&locations=964%7C236&postalCode=K7M&skus=15689336"
+    },
+    {
+        "name": "Xbox Series X",
+        "uri": "https://www.bestbuy.ca/ecomm-api/availability/products?accept=application%2Fvnd.bestbuy.standardproduct.v1%2Bjson&accept-language=en-CA&locations=964%7C236&postalCode=K7M&skus=14964951"
+    },
+    {
+        "name": "Elden Ring",
+        "uri": "https://www.bestbuy.ca/ecomm-api/availability/products?accept=application%2Fvnd.bestbuy.standardproduct.v1%2Bjson&accept-language=en-CA&locations=236%7C964&postalCode=K7M7S8&skus=15865286"
+    }
+]
