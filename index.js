@@ -54,6 +54,14 @@ async function getStatus() {
 
         let logMessage = `\t${product.name}${space(product.name, maxChars)}\t|\tPickup: "${response.pickup}"${space(response.pickup)}Shipping: "${response.shipping}"`;
         if (response.onlineRemaining) logMessage += `${space(response.shipping)}Online Quantity: ${response.onlineRemaining}`;
+        if (product.inStock) {
+            let quantities = response.locations.filter(location => location.quantityOnHand).map(location => ({ name: location.name, quantity: location.quantityOnHand }));
+            let quantityMessage = quantities.reduce((text, location) => {
+                return text += `\t${space('', maxChars)}\t|\t${location.name}: ${location.quantity}\n`;
+            }, '');
+            logMessage += `\n\t${space('', maxChars)}\t|\tLocations for pickup:`;
+            logMessage += `\n${quantityMessage}`;
+        }
 
         log(logMessage);
 
